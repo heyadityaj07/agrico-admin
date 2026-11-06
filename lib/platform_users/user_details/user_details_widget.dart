@@ -490,7 +490,7 @@ class _UserDetailsWidgetState extends State<UserDetailsWidget> {
                                                         ),
                                                   ),
                                                   Text(
-                                                    formatCurrencyTotals(groupOrderAmountsByCurrency(containerOrderRecordList, (e) => e.totalAmmount)),
+                                                    formatLanguageCurrency(functions.totalsales(containerOrderRecordList.map((e) => e.totalAmmount).toList()), Localizations.localeOf(context).languageCode),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium

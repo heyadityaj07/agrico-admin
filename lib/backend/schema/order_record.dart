@@ -36,12 +36,6 @@ class OrderRecord extends FirestoreRecord {
   double get subTotal => _subTotal ?? 0.0;
   bool hasSubTotal() => _subTotal != null;
 
-  // "currency" field.
-  String? _currency;
-  String get currency => _currency ?? '';
-  bool hasCurrency() => _currency != null;
-  String? get currencyOrNull => _currency;
-
   // "service_fee" field.
   double? _serviceFee;
   double get serviceFee => _serviceFee ?? 0.0;
@@ -148,7 +142,6 @@ class OrderRecord extends FirestoreRecord {
     _note = snapshotData['note'] as String?;
     _voucherCode = snapshotData['voucher_code'] as String?;
     _subTotal = castToType<double>(snapshotData['sub_total']);
-    _currency = snapshotData['currency'] as String?;
     _serviceFee = castToType<double>(snapshotData['service_fee']);
     _deliveryTip = castToType<double>(snapshotData['delivery_tip']);
     _deliveryFee = castToType<double>(snapshotData['delivery_fee']);
@@ -234,7 +227,6 @@ Map<String, dynamic> createOrderRecordData({
   DateTime? deliveredTime,
   bool? levaeReview,
   ReviewStruct? review,
-  String? currency,
   bool? isSuspend,
 }) {
   final firestoreData = mapToFirestore(
@@ -261,7 +253,6 @@ Map<String, dynamic> createOrderRecordData({
       'Delivered_time': deliveredTime,
       'levae_review': levaeReview,
       'review': ReviewStruct().toMap(),
-      'currency': currency,
       'is_suspend': isSuspend,
     }.withoutNulls,
   );
@@ -305,7 +296,6 @@ class OrderRecordDocumentEquality implements Equality<OrderRecord> {
         e1?.deliveredTime == e2?.deliveredTime &&
         e1?.levaeReview == e2?.levaeReview &&
         e1?.review == e2?.review &&
-        e1?.currency == e2?.currency &&
         e1?.isSuspend == e2?.isSuspend;
   }
 
@@ -334,7 +324,6 @@ class OrderRecordDocumentEquality implements Equality<OrderRecord> {
         e?.deliveredTime,
         e?.levaeReview,
         e?.review,
-        e?.currency,
         e?.isSuspend
       ]);
 

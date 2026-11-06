@@ -2036,7 +2036,7 @@ class _StorerejectWidgetState extends State<StorerejectWidget> {
                                                     .fromSTEB(
                                                         6.0, 0.0, 0.0, 0.0),
                                                 child: Text(
-                                                  formatCurrencyTotals(groupOrderAmountsByCurrency(containerOrderRecordList.where((e) => e.orderStatus != 'Rejected'), (e) => e.totalAmmount)),
+                                                  formatLanguageCurrency(functions.totalsales(containerOrderRecordList.where((e) => e.orderStatus != 'Rejected').map((e) => e.totalAmmount).toList()), Localizations.localeOf(context).languageCode),
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium

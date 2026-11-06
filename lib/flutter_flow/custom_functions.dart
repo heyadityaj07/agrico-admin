@@ -9,7 +9,6 @@ import 'lat_lng.dart';
 import 'place.dart';
 import 'uploaded_file.dart';
 import '/backend/backend.dart';
-import '/backend/currency/currency_utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' hide Type;
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/ff_builtin_enums.dart';
@@ -65,16 +64,6 @@ double totalRevenueForValidFarms(
 ) =>
     _validFarmOrders(orders, farms, users)
         .fold(0.0, (sum, order) => sum + order.totalAmmount);
-
-CurrencyTotals totalRevenueForValidFarmsByCurrency(
-  List<OrderRecord>? orders,
-  List<FarmsRecord>? farms,
-  List<UsersRecord>? users,
-) =>
-    groupOrderAmountsByCurrency(
-      _validFarmOrders(orders, farms, users),
-      (order) => order.totalAmmount,
-    );
 
 String monthlyGrowth(
   List<UsersRecord>? users,

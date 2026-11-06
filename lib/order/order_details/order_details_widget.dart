@@ -1461,7 +1461,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                                                               0.0),
                                                                       child:
                                                                           Text(
-                                                                        formatOrderCurrency(orderitemsItem.pricePerProduct, containerOrderRecord.currency),
+                                                                        formatLanguageCurrency(orderitemsItem.pricePerProduct, Localizations.localeOf(context).languageCode),
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyMedium
                                                                             .override(
@@ -1517,7 +1517,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                                         MainAxisSize.max,
                                                     children: [
                                                       Text(
-                                                        formatOrderCurrency(containerOrderRecord.subTotal, containerOrderRecord.currency),
+                                                        formatLanguageCurrency(containerOrderRecord.subTotal, Localizations.localeOf(context).languageCode),
                                                         style: FlutterFlowTheme
                                                                 .of(context)
                                                             .bodyMedium
@@ -1563,7 +1563,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                                         ),
                                                   ),
                                                   Text(
-                                                    formatOrderCurrency(containerOrderRecord.serviceFee, containerOrderRecord.currency),
+                                                    formatLanguageCurrency(containerOrderRecord.serviceFee, Localizations.localeOf(context).languageCode),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -1604,7 +1604,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                                         ),
                                                   ),
                                                   Text(
-                                                    formatOrderCurrency(containerOrderRecord.deliveryFee, containerOrderRecord.currency),
+                                                    formatLanguageCurrency(containerOrderRecord.deliveryFee, Localizations.localeOf(context).languageCode),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -1654,7 +1654,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                                         ),
                                                   ),
                                                   Text(
-                                                    formatOrderCurrency(containerOrderRecord.totalAmmount, containerOrderRecord.currency),
+                                                    formatLanguageCurrency(containerOrderRecord.totalAmmount, Localizations.localeOf(context).languageCode),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium

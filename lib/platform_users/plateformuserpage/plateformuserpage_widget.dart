@@ -1784,7 +1784,7 @@ class _PlateformuserpageWidgetState extends State<PlateformuserpageWidget> {
                                                                                   child: Align(
                                                                                     alignment: AlignmentDirectional(0.0, 0.0),
                                                                                     child: Text(
-                                                                                      formatCurrencyTotals(groupOrderAmountsByCurrency(containerOrderRecordList, (e) => e.totalAmmount)),
+                                                                                      formatLanguageCurrency(functions.totalsales(containerOrderRecordList.map((e) => e.totalAmmount).toList()), Localizations.localeOf(context).languageCode),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             fontFamily: 'Satoshi',
                                                                                             color: FlutterFlowTheme.of(context).primaryText,

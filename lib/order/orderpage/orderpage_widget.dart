@@ -1492,7 +1492,7 @@ class _OrderpageWidgetState extends State<OrderpageWidget> {
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    formatOrderCurrency(orderitemsItem.totalAmmount, orderitemsItem.currency),
+                                                                                    formatLanguageCurrency(orderitemsItem.totalAmmount, Localizations.localeOf(context).languageCode),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           fontFamily: 'Satoshi',
                                                                                           color: FlutterFlowTheme.of(context).primaryText,

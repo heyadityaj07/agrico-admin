@@ -500,7 +500,7 @@ class _DashbordpageWidgetState extends State<DashbordpageWidget> {
                                                                               .spaceBetween,
                                                                       children: [
                                                                         Text(
-                                                                          formatCurrencyTotals(functions.totalRevenueForValidFarmsByCurrency(containerOrderRecordList.toList(), containerFarmsRecordList.where((e) => e.approvalStatus == true).toList(), containerUsersRecordList.toList())),
+                                                                          formatLanguageCurrency(functions.totalRevenueForValidFarms(containerOrderRecordList.toList(), containerFarmsRecordList.where((e) => e.approvalStatus == true).toList(), containerUsersRecordList.toList()), Localizations.localeOf(context).languageCode),
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(

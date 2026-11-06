@@ -531,7 +531,7 @@ class _StorepageWidgetState extends State<StorepageWidget> {
                                                                     decoration:
                                                                         BoxDecoration(),
                                                                     child: Text(
-                                                                      formatCurrencyTotals(functions.totalRevenueForValidFarmsByCurrency(containerOrderRecordList.toList(), containerFarmsRecordList.toList(), containerUsersRecordList.toList())),
+                                                                      formatLanguageCurrency(functions.totalRevenueForValidFarms(containerOrderRecordList.toList(), containerFarmsRecordList.toList(), containerUsersRecordList.toList()), Localizations.localeOf(context).languageCode),
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -1558,7 +1558,7 @@ class _StorepageWidgetState extends State<StorepageWidget> {
                                                                               child: Align(
                                                                                 alignment: AlignmentDirectional(0.0, 0.0),
                                                                                 child: Text(
-                                                                                  formatCurrencyTotals(groupOrderAmountsByCurrency(containerOrderRecordList.where((e) => e.orderStatus != 'Rejected'), (e) => e.totalAmmount)),
+                                                                                  formatLanguageCurrency(functions.totalsales(containerOrderRecordList.where((e) => e.orderStatus != 'Rejected').map((e) => e.totalAmmount).toList()), Localizations.localeOf(context).languageCode),
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                         fontFamily: 'Satoshi',
                                                                                         color: FlutterFlowTheme.of(context).primaryText,
