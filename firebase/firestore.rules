@@ -1,0 +1,119 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{document} {
+      allow create: if request.auth.uid == document;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if request.auth.uid == document;
+    }
+
+    match /farms/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /product/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /scadule_product/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /users/{parent}/cart/{document} {
+      allow create: if request.auth.uid == parent;
+      allow read: if request.auth.uid == parent;
+      allow write: if request.auth.uid == parent;
+      allow delete: if request.auth.uid == parent;
+    }
+
+    match /order/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /chat/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /chat/{parent}/chat_messages/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if true;
+    }
+
+    match /{path=**}/chat_messages/{document} {
+      allow read: if true;
+    }
+
+
+    match /helpChat/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /helpChat/{parent}/conversation/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /{path=**}/conversation/{document} {
+      allow read: if true;
+    }
+
+
+    match /certificate/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /audit_log/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if true;
+      allow delete: if true;
+    }
+
+    match /subscriptions/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /subscription_payments/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /config/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+  }
+}

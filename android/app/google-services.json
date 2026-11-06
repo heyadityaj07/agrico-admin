@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "791860873092",
+    "project_id": "agricoo-b9c46",
+    "storage_bucket": "agricoo-b9c46.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791860873092:android:6dc5106d520b07284d3fd1",
+        "android_client_info": {
+          "package_name": "com.mycompany.agricooadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791860873092-s53mka2mh6v9ku5ikfrvagols5sa7edu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.agricooadmin",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "791860873092-3nkb4hofpdttetdk3jq80hhq5njfmq7j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBybzs-CZ7ZqYJZdxN4Gjr1wnUh_yhwjIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791860873092-3nkb4hofpdttetdk3jq80hhq5njfmq7j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "791860873092-d2bcumjbgnsoure2rctinloe193bhfbl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.agricooadmin"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791860873092:android:d14a009773e722ab4d3fd1",
+        "android_client_info": {
+          "package_name": "com.mycompany.agricoov2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791860873092-409dm935sn1pum1the1thndbi0m7kf1t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.agricoov2",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "791860873092-dorot0qkicd5glc2n6o5kqof4722b9sv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.agricoov2",
+            "certificate_hash": "4b26fd22ba8f1d60a1b6cf77228311343058997c"
+          }
+        },
+        {
+          "client_id": "791860873092-3nkb4hofpdttetdk3jq80hhq5njfmq7j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBybzs-CZ7ZqYJZdxN4Gjr1wnUh_yhwjIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791860873092-3nkb4hofpdttetdk3jq80hhq5njfmq7j.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "791860873092-d2bcumjbgnsoure2rctinloe193bhfbl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.agricooadmin"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
