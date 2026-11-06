@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/backend/currency/currency_utils.dart';
 import '/components/data_load_widget.dart';
 import '/components/header_widget.dart';
 import '/components/sidebar_widget.dart';
@@ -1491,7 +1492,7 @@ class _OrderpageWidgetState extends State<OrderpageWidget> {
                                                                                 child: Align(
                                                                                   alignment: AlignmentDirectional(0.0, 0.0),
                                                                                   child: Text(
-                                                                                    '\$${orderitemsItem.totalAmmount.toStringAsFixed(2)}',
+                                                                                    formatOrderCurrency(orderitemsItem.totalAmmount, orderitemsItem.currency),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           fontFamily: 'Satoshi',
                                                                                           color: FlutterFlowTheme.of(context).primaryText,

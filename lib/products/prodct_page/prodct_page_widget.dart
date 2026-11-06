@@ -1498,7 +1498,7 @@ class _ProdctPageWidgetState extends State<ProdctPageWidget> {
                                                                               Align(
                                                                                 alignment: AlignmentDirectional(0.0, 0.0),
                                                                                 child: Text(
-                                                                                  '\$${productsItem.price.toString()}',
+                                                                                  '${productsItem.price.toString()}',
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                         fontFamily: 'Satoshi',
                                                                                         color: FlutterFlowTheme.of(context).primaryText,

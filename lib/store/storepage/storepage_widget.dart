@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/backend/currency/currency_utils.dart';
 import '/components/data_load_widget.dart';
 import '/components/header_widget.dart';
 import '/components/sidebar_widget.dart';
@@ -530,7 +531,7 @@ class _StorepageWidgetState extends State<StorepageWidget> {
                                                                     decoration:
                                                                         BoxDecoration(),
                                                                     child: Text(
-                                                                      '\$${functions.totalRevenueForValidFarms(containerOrderRecordList.toList(), containerFarmsRecordList.toList(), containerUsersRecordList.toList()).toStringAsFixed(2)}',
+                                                                      formatCurrencyTotals(functions.totalRevenueForValidFarmsByCurrency(containerOrderRecordList.toList(), containerFarmsRecordList.toList(), containerUsersRecordList.toList())),
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -1557,7 +1558,7 @@ class _StorepageWidgetState extends State<StorepageWidget> {
                                                                               child: Align(
                                                                                 alignment: AlignmentDirectional(0.0, 0.0),
                                                                                 child: Text(
-                                                                                  '\$${functions.totalsales(containerOrderRecordList.where((e) => e.orderStatus != 'Rejected').toList().map((e) => e.totalAmmount).toList()).toStringAsFixed(2)}',
+                                                                                  formatCurrencyTotals(groupOrderAmountsByCurrency(containerOrderRecordList.where((e) => e.orderStatus != 'Rejected'), (e) => e.totalAmmount)),
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                         fontFamily: 'Satoshi',
                                                                                         color: FlutterFlowTheme.of(context).primaryText,

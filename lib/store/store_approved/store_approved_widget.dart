@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/currency/currency_utils.dart';
 import '/components/data_load_widget.dart';
 import '/flutter_flow/flutter_flow_media_display.dart';
 import '/flutter_flow/flutter_flow_pdf_viewer.dart';
@@ -2065,10 +2066,7 @@ class _StoreApprovedWidgetState extends State<StoreApprovedWidget> {
                                                     .fromSTEB(
                                                         6.0, 0.0, 0.0, 0.0),
                                                 child: Text(
-                                                  '\$${functions.totalsales(containerOrderRecordList.where((e) => e.orderStatus != 'Rejected').toList().map((e) => valueOrDefault<double>(
-                                                        e.totalAmmount,
-                                                        0.0,
-                                                      )).toList()).toStringAsFixed(2)}',
+                                                  formatCurrencyTotals(groupOrderAmountsByCurrency(containerOrderRecordList.where((e) => e.orderStatus != 'Rejected'), (e) => e.totalAmmount)),
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium

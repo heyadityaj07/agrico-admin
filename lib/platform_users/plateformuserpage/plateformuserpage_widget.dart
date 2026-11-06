@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/backend/currency/currency_utils.dart';
 import '/components/data_load_widget.dart';
 import '/components/header_widget.dart';
 import '/components/sidebar_widget.dart';
@@ -1783,10 +1784,7 @@ class _PlateformuserpageWidgetState extends State<PlateformuserpageWidget> {
                                                                                   child: Align(
                                                                                     alignment: AlignmentDirectional(0.0, 0.0),
                                                                                     child: Text(
-                                                                                      '\$${functions.totalsales(containerOrderRecordList.map((e) => valueOrDefault<double>(
-                                                                                            e.totalAmmount,
-                                                                                            0.0,
-                                                                                          )).toList()).toStringAsFixed(2)}',
+                                                                                      formatCurrencyTotals(groupOrderAmountsByCurrency(containerOrderRecordList, (e) => e.totalAmmount)),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             fontFamily: 'Satoshi',
                                                                                             color: FlutterFlowTheme.of(context).primaryText,

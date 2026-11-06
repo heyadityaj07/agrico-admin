@@ -1127,7 +1127,7 @@ class _KycVerificationpageWidgetState extends State<KycVerificationpageWidget> {
                                                                                                 ),
                                                                                           ),
                                                                                           Text(
-                                                                                            '\$${productsItem.price.toString()} / ${productsItem.unit}',
+                                                                                            '${productsItem.price.toString()} / ${productsItem.unit}',
                                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                   fontFamily: 'Satoshi',
                                                                                                   color: FlutterFlowTheme.of(context).primaryText,

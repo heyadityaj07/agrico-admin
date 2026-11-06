@@ -9,6 +9,7 @@ import 'lat_lng.dart';
 import 'place.dart';
 import 'uploaded_file.dart';
 import '/backend/backend.dart';
+import '/backend/currency/currency_utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' hide Type;
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/ff_builtin_enums.dart';
@@ -30,13 +31,13 @@ double avargeRating(List<double>? ratings) {
   return double.parse(avg.toStringAsFixed(2));
 }
 
-double totalRevenueForValidFarms(
+Iterable<OrderRecord> _validFarmOrders(
   List<OrderRecord>? orders,
   List<FarmsRecord>? farms,
   List<UsersRecord>? users,
 ) {
   if (orders == null || farms == null || users == null) {
-    return 0.0;
+    return const <OrderRecord>[];
   }
 
   final existingUserPaths = users.map((user) => user.reference.path).toSet();
@@ -54,8 +55,26 @@ double totalRevenueForValidFarms(
     return order.orderStatus != 'Rejected' &&
         farmRef != null &&
         validFarmPaths.contains(farmRef.path);
-  }).fold(0.0, (sum, order) => sum + order.totalAmmount);
+  });
 }
+
+double totalRevenueForValidFarms(
+  List<OrderRecord>? orders,
+  List<FarmsRecord>? farms,
+  List<UsersRecord>? users,
+) =>
+    _validFarmOrders(orders, farms, users)
+        .fold(0.0, (sum, order) => sum + order.totalAmmount);
+
+CurrencyTotals totalRevenueForValidFarmsByCurrency(
+  List<OrderRecord>? orders,
+  List<FarmsRecord>? farms,
+  List<UsersRecord>? users,
+) =>
+    groupOrderAmountsByCurrency(
+      _validFarmOrders(orders, farms, users),
+      (order) => order.totalAmmount,
+    );
 
 String monthlyGrowth(
   List<UsersRecord>? users,

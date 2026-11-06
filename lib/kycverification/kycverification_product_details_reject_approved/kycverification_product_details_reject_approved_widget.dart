@@ -305,7 +305,7 @@ class _KycverificationProductDetailsRejectApprovedWidgetState
                                                         ),
                                                   ),
                                                   Text(
-                                                    '\$${containerProductRecord.price.toString()} / ${containerProductRecord.unit}',
+                                                    '${containerProductRecord.price.toString()} / ${containerProductRecord.unit}',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -740,7 +740,7 @@ class _KycverificationProductDetailsRejectApprovedWidgetState
                                                               ),
                                                     ),
                                                     Text(
-                                                      '\$${itemItem.pricePerKg.toString()}',
+                                                      '${itemItem.pricePerKg.toString()}',
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)

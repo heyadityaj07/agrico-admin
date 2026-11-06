@@ -488,7 +488,7 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                                             ),
                                       ),
                                       Text(
-                                        '\$${valueOrDefault<String>(
+                                        '${valueOrDefault<String>(
                                           containerProductRecord.price
                                               .toString(),
                                           '0',
@@ -767,7 +767,7 @@ class _ProductDetailsWidgetState extends State<ProductDetailsWidget> {
                                                               ),
                                                     ),
                                                     Text(
-                                                      '\$${weightItem.pricePerKg.toString()}',
+                                                      '${weightItem.pricePerKg.toString()}',
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)

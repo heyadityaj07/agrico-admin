@@ -1,5 +1,6 @@
 // Automatic FlutterFlow imports
 import '/backend/backend.dart';
+import '/backend/currency/currency_utils.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/ff_builtin_enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -312,7 +313,7 @@ class _CustomListWidgetState extends State<CustomListWidget> {
                           child: Align(
                             alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Text(
-                              '\$${functions.totalsales(containerOrderRecordList.where((e) => e.orderStatus != 'Rejected').toList().map((e) => e.totalAmmount).toList()).toStringAsFixed(2)}',
+                              formatCurrencyTotals(groupOrderAmountsByCurrency(containerOrderRecordList.where((e) => e.orderStatus != 'Rejected'), (e) => e.totalAmmount)),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(

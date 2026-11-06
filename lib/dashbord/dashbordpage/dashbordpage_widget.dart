@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/currency/currency_utils.dart';
 import '/components/data_load_widget.dart';
 import '/components/header_widget.dart';
 import '/components/sidebar_widget.dart';
@@ -499,7 +500,7 @@ class _DashbordpageWidgetState extends State<DashbordpageWidget> {
                                                                               .spaceBetween,
                                                                       children: [
                                                                         Text(
-                                                                          '\$${functions.totalRevenueForValidFarms(containerOrderRecordList.toList(), containerFarmsRecordList.where((e) => e.approvalStatus == true).toList(), containerUsersRecordList.toList()).toStringAsFixed(2)}',
+                                                                          formatCurrencyTotals(functions.totalRevenueForValidFarmsByCurrency(containerOrderRecordList.toList(), containerFarmsRecordList.where((e) => e.approvalStatus == true).toList(), containerUsersRecordList.toList())),
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(

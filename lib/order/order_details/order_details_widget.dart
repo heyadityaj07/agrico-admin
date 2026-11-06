@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/currency/currency_utils.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/data_load_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -1460,12 +1461,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                                                               0.0),
                                                                       child:
                                                                           Text(
-                                                                        '\$${valueOrDefault<String>(
-                                                                          orderitemsItem
-                                                                              .pricePerProduct
-                                                                              .toString(),
-                                                                          '0.0',
-                                                                        )}',
+                                                                        formatOrderCurrency(orderitemsItem.pricePerProduct, containerOrderRecord.currency),
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyMedium
                                                                             .override(
@@ -1521,7 +1517,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                                         MainAxisSize.max,
                                                     children: [
                                                       Text(
-                                                        '\$${containerOrderRecord.subTotal.toString()}',
+                                                        formatOrderCurrency(containerOrderRecord.subTotal, containerOrderRecord.currency),
                                                         style: FlutterFlowTheme
                                                                 .of(context)
                                                             .bodyMedium
@@ -1567,12 +1563,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                                         ),
                                                   ),
                                                   Text(
-                                                    '\$${valueOrDefault<String>(
-                                                      containerOrderRecord
-                                                          .serviceFee
-                                                          .toString(),
-                                                      '0',
-                                                    )}',
+                                                    formatOrderCurrency(containerOrderRecord.serviceFee, containerOrderRecord.currency),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -1613,7 +1604,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                                         ),
                                                   ),
                                                   Text(
-                                                    '\$${containerOrderRecord.deliveryFee.toString()}',
+                                                    formatOrderCurrency(containerOrderRecord.deliveryFee, containerOrderRecord.currency),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -1663,7 +1654,7 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                                         ),
                                                   ),
                                                   Text(
-                                                    '\$${containerOrderRecord.totalAmmount.toStringAsFixed(2)}',
+                                                    formatOrderCurrency(containerOrderRecord.totalAmmount, containerOrderRecord.currency),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
