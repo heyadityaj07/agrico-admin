@@ -137,6 +137,61 @@ class OrderRecord extends FirestoreRecord {
   bool get isSuspend => _isSuspend ?? false;
   bool hasIsSuspend() => _isSuspend != null;
 
+  // "is_farm_pickup" field.
+  bool? _isFarmPickup;
+  bool get isFarmPickup => _isFarmPickup ?? false;
+  bool hasIsFarmPickup() => _isFarmPickup != null;
+
+  // "username" field.
+  String? _username;
+  String get username => _username ?? '';
+  bool hasUsername() => _username != null;
+
+  // "is_agrico_deliver" field.
+  bool? _isAgricoDeliver;
+  bool get isAgricoDeliver => _isAgricoDeliver ?? false;
+  bool hasIsAgricoDeliver() => _isAgricoDeliver != null;
+
+  // "initial_deposit_paid" field.
+  double? _initialDepositPaid;
+  double get initialDepositPaid => _initialDepositPaid ?? 0.0;
+  bool hasInitialDepositPaid() => _initialDepositPaid != null;
+
+  // "final_total_amount" field.
+  double? _finalTotalAmount;
+  double get finalTotalAmount => _finalTotalAmount ?? 0.0;
+  bool hasFinalTotalAmount() => _finalTotalAmount != null;
+
+  // "is_variable_weight_order" field.
+  bool? _isVariableWeightOrder;
+  bool get isVariableWeightOrder => _isVariableWeightOrder ?? false;
+  bool hasIsVariableWeightOrder() => _isVariableWeightOrder != null;
+
+  // "balance_payment_status" field.
+  String? _balancePaymentStatus;
+  String get balancePaymentStatus => _balancePaymentStatus ?? '';
+  bool hasBalancePaymentStatus() => _balancePaymentStatus != null;
+
+  // "final_balance_amount" field.
+  double? _finalBalanceAmount;
+  double get finalBalanceAmount => _finalBalanceAmount ?? 0.0;
+  bool hasFinalBalanceAmount() => _finalBalanceAmount != null;
+
+  // "payment_intent_id" field.
+  String? _paymentIntentId;
+  String get paymentIntentId => _paymentIntentId ?? '';
+  bool hasPaymentIntentId() => _paymentIntentId != null;
+
+  // "payment_state" field.
+  String? _paymentState;
+  String get paymentState => _paymentState ?? '';
+  bool hasPaymentState() => _paymentState != null;
+
+  // "payment_attempt" field.
+  int? _paymentAttempt;
+  int get paymentAttempt => _paymentAttempt ?? 0;
+  bool hasPaymentAttempt() => _paymentAttempt != null;
+
   void _initializeFields() {
     _totalAmmount = castToType<double>(snapshotData['total_ammount']);
     _note = snapshotData['note'] as String?;
@@ -170,6 +225,17 @@ class OrderRecord extends FirestoreRecord {
         ? snapshotData['review']
         : ReviewStruct.maybeFromMap(snapshotData['review']);
     _isSuspend = snapshotData['is_suspend'] as bool?;
+    _isFarmPickup = snapshotData['is_farm_pickup'] as bool?;
+    _username = snapshotData['username'] as String?;
+    _isAgricoDeliver = snapshotData['is_agrico_deliver'] as bool?;
+    _initialDepositPaid = castToType<double>(snapshotData['initial_deposit_paid']);
+    _finalTotalAmount = castToType<double>(snapshotData['final_total_amount']);
+    _isVariableWeightOrder = snapshotData['is_variable_weight_order'] as bool?;
+    _balancePaymentStatus = snapshotData['balance_payment_status'] as String?;
+    _finalBalanceAmount = castToType<double>(snapshotData['final_balance_amount']);
+    _paymentIntentId = snapshotData['payment_intent_id'] as String?;
+    _paymentState = snapshotData['payment_state'] as String?;
+    _paymentAttempt = castToType<int>(snapshotData['payment_attempt']);
   }
 
   static CollectionReference get collection =>
@@ -228,6 +294,17 @@ Map<String, dynamic> createOrderRecordData({
   bool? levaeReview,
   ReviewStruct? review,
   bool? isSuspend,
+  bool? isFarmPickup,
+  String? username,
+  bool? isAgricoDeliver,
+  double? initialDepositPaid,
+  double? finalTotalAmount,
+  bool? isVariableWeightOrder,
+  String? balancePaymentStatus,
+  double? finalBalanceAmount,
+  String? paymentIntentId,
+  String? paymentState,
+  int? paymentAttempt,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -254,6 +331,17 @@ Map<String, dynamic> createOrderRecordData({
       'levae_review': levaeReview,
       'review': ReviewStruct().toMap(),
       'is_suspend': isSuspend,
+      'is_farm_pickup': isFarmPickup,
+      'username': username,
+      'is_agrico_deliver': isAgricoDeliver,
+      'initial_deposit_paid': initialDepositPaid,
+      'final_total_amount': finalTotalAmount,
+      'is_variable_weight_order': isVariableWeightOrder,
+      'balance_payment_status': balancePaymentStatus,
+      'final_balance_amount': finalBalanceAmount,
+      'payment_intent_id': paymentIntentId,
+      'payment_state': paymentState,
+      'payment_attempt': paymentAttempt,
     }.withoutNulls,
   );
 
@@ -296,7 +384,18 @@ class OrderRecordDocumentEquality implements Equality<OrderRecord> {
         e1?.deliveredTime == e2?.deliveredTime &&
         e1?.levaeReview == e2?.levaeReview &&
         e1?.review == e2?.review &&
-        e1?.isSuspend == e2?.isSuspend;
+        e1?.isSuspend == e2?.isSuspend &&
+        e1?.isFarmPickup == e2?.isFarmPickup &&
+        e1?.username == e2?.username &&
+        e1?.isAgricoDeliver == e2?.isAgricoDeliver &&
+        e1?.initialDepositPaid == e2?.initialDepositPaid &&
+        e1?.finalTotalAmount == e2?.finalTotalAmount &&
+        e1?.isVariableWeightOrder == e2?.isVariableWeightOrder &&
+        e1?.balancePaymentStatus == e2?.balancePaymentStatus &&
+        e1?.finalBalanceAmount == e2?.finalBalanceAmount &&
+        e1?.paymentIntentId == e2?.paymentIntentId &&
+        e1?.paymentState == e2?.paymentState &&
+        e1?.paymentAttempt == e2?.paymentAttempt;
   }
 
   @override
@@ -324,7 +423,18 @@ class OrderRecordDocumentEquality implements Equality<OrderRecord> {
         e?.deliveredTime,
         e?.levaeReview,
         e?.review,
-        e?.isSuspend
+        e?.isSuspend,
+        e?.isFarmPickup,
+        e?.username,
+        e?.isAgricoDeliver,
+        e?.initialDepositPaid,
+        e?.finalTotalAmount,
+        e?.isVariableWeightOrder,
+        e?.balancePaymentStatus,
+        e?.finalBalanceAmount,
+        e?.paymentIntentId,
+        e?.paymentState,
+        e?.paymentAttempt
       ]);
 
   @override

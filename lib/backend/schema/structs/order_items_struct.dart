@@ -21,7 +21,7 @@ class OrderItemsStruct extends FFFirebaseStruct {
     double? depositAmount,
     double? finalItemPrice,
     double? remainingBalance,
-    double? weightLocked,
+    bool? weightLocked,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _productRef = productRef,
         _totalItems = totalItems,
@@ -138,12 +138,9 @@ class OrderItemsStruct extends FFFirebaseStruct {
   bool hasRemainingBalance() => _remainingBalance != null;
 
   // "weight_locked" field.
-  double? _weightLocked;
-  double get weightLocked => _weightLocked ?? 0.0;
-  set weightLocked(double? val) => _weightLocked = val;
-
-  void incrementWeightLocked(double amount) =>
-      weightLocked = weightLocked + amount;
+  bool? _weightLocked;
+  bool get weightLocked => _weightLocked ?? false;
+  set weightLocked(bool? val) => _weightLocked = val;
 
   bool hasWeightLocked() => _weightLocked != null;
 
@@ -160,7 +157,7 @@ class OrderItemsStruct extends FFFirebaseStruct {
         depositAmount: castToType<double>(data['deposit_amount']),
         finalItemPrice: castToType<double>(data['final_item_price']),
         remainingBalance: castToType<double>(data['remaining_balance']),
-        weightLocked: castToType<double>(data['weight_locked']),
+        weightLocked: data['weight_locked'] as bool?,
       );
 
   static OrderItemsStruct? maybeFromMap(dynamic data) => data is Map
@@ -230,7 +227,7 @@ class OrderItemsStruct extends FFFirebaseStruct {
         ),
         'weight_locked': serializeParam(
           _weightLocked,
-          ParamType.double,
+          ParamType.bool,
         ),
       }.withoutNulls;
 
@@ -294,7 +291,7 @@ class OrderItemsStruct extends FFFirebaseStruct {
         ),
         weightLocked: deserializeParam(
           data['weight_locked'],
-          ParamType.double,
+          ParamType.bool,
           false,
         ),
       );
@@ -348,7 +345,7 @@ OrderItemsStruct createOrderItemsStruct({
   double? depositAmount,
   double? finalItemPrice,
   double? remainingBalance,
-  double? weightLocked,
+  bool? weightLocked,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,

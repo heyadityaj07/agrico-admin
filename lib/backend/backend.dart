@@ -19,6 +19,7 @@ import 'schema/certificate_record.dart';
 import 'schema/audit_log_record.dart';
 import 'schema/subscriptions_record.dart';
 import 'schema/subscription_payments_record.dart';
+import 'schema/payments_record.dart';
 import 'schema/config_record.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -42,6 +43,7 @@ export 'schema/certificate_record.dart';
 export 'schema/audit_log_record.dart';
 export 'schema/subscriptions_record.dart';
 export 'schema/subscription_payments_record.dart';
+export 'schema/payments_record.dart';
 export 'schema/config_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
@@ -566,6 +568,43 @@ Future<List<SubscriptionPaymentsRecord>> querySubscriptionPaymentsRecordOnce({
     queryCollectionOnce(
       SubscriptionPaymentsRecord.collection,
       SubscriptionPaymentsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+/// Functions to query PaymentsRecords (farm payment ledger) (as a Stream and as a Future).
+Future<int> queryPaymentsRecordCount({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+}) =>
+    queryCollectionCount(
+      PaymentsRecord.collection,
+      queryBuilder: queryBuilder,
+      limit: limit,
+    );
+
+Stream<List<PaymentsRecord>> queryPaymentsRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      PaymentsRecord.collection,
+      PaymentsRecord.fromSnapshot,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<PaymentsRecord>> queryPaymentsRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      PaymentsRecord.collection,
+      PaymentsRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,

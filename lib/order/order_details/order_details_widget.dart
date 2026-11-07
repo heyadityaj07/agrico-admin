@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/currency/currency_utils.dart';
+import '/backend/payments/payment_status_utils.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/data_load_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -1349,144 +1350,190 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                                                   0.0,
                                                                   0.0,
                                                                   12.0),
-                                                      child: StreamBuilder<
-                                                          ProductRecord>(
-                                                        stream: ProductRecord
-                                                            .getDocument(
-                                                                orderitemsItem
-                                                                    .productRef!),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return DataLoadWidget(
-                                                              height: 48,
-                                                              width: 205,
-                                                              colour: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
-                                                            );
-                                                          }
+                                                        child: StreamBuilder<
+                                                            ProductRecord>(
+                                                          stream: ProductRecord
+                                                              .getDocument(
+                                                                  orderitemsItem
+                                                                      .productRef!),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            // Customize what your widget looks like when it's loading.
+                                                            if (!snapshot
+                                                                .hasData) {
+                                                              return DataLoadWidget(
+                                                                height: 48,
+                                                                width: 205,
+                                                                colour: FlutterFlowTheme
+                                                                        .of(context)
+                                                                    .primaryBackground,
+                                                              );
+                                                            }
 
-                                                          final containerProductRecord =
-                                                              snapshot.data!;
+                                                            final containerProductRecord =
+                                                                snapshot.data!;
 
-                                                          return Container(
-                                                            width:
-                                                                double.infinity,
-                                                            height: 68.0,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          12.0),
-                                                            ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .all(8.0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  ClipRRect(
+                                                            return Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Container(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  height: 68.0,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: FlutterFlowTheme
+                                                                            .of(context)
+                                                                        .primaryBackground,
                                                                     borderRadius:
                                                                         BorderRadius.circular(
                                                                             12.0),
-                                                                    child: Image
-                                                                        .network(
-                                                                      getCORSProxyUrl(
-                                                                        containerProductRecord
-                                                                            .productImage,
-                                                                      ),
-                                                                      width:
-                                                                          52.0,
-                                                                      height:
-                                                                          52.0,
-                                                                      fit: BoxFit
-                                                                          .cover,
+                                                                  ),
+                                                                  child: Padding(
+                                                                    padding:
+                                                                        EdgeInsets
+                                                                            .all(8.0),
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize.max,
+                                                                      children: [
+                                                                        ClipRRect(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(12.0),
+                                                                          child:
+                                                                              Image.network(
+                                                                            getCORSProxyUrl(
+                                                                              containerProductRecord.productImage,
+                                                                            ),
+                                                                            width:
+                                                                                52.0,
+                                                                            height:
+                                                                                52.0,
+                                                                            fit: BoxFit
+                                                                                .cover,
+                                                                          ),
+                                                                        ),
+                                                                        Column(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            Text(
+                                                                              containerProductRecord.productName,
+                                                                              style: FlutterFlowTheme.of(context)
+                                                                                  .bodyMedium
+                                                                                  .override(
+                                                                                    fontFamily: 'Satoshi',
+                                                                                    fontSize: 18.0,
+                                                                                    letterSpacing: 0.0,
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                  ),
+                                                                            ),
+                                                                            Text(
+                                                                              'Quantity : ${orderitemsItem.totalItems.toString()}',
+                                                                              maxLines: 1,
+                                                                              style: FlutterFlowTheme.of(context)
+                                                                                  .bodyMedium
+                                                                                  .override(
+                                                                                    fontFamily: 'Satoshi',
+                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                    fontSize: 14.0,
+                                                                                    letterSpacing: 0.0,
+                                                                                    fontWeight: FontWeight.normal,
+                                                                                  ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                        Expanded(
+                                                                          child:
+                                                                              Align(
+                                                                            alignment:
+                                                                                AlignmentDirectional(1.0, 0.0),
+                                                                            child:
+                                                                                Text(
+                                                                              formatLanguageCurrency(orderitemsItem.pricePerProduct, Localizations.localeOf(context).languageCode),
+                                                                              style: FlutterFlowTheme.of(context)
+                                                                                  .bodyMedium
+                                                                                  .override(
+                                                                                    fontFamily: 'Satoshi',
+                                                                                    fontSize: 16.0,
+                                                                                    letterSpacing: 0.0,
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                  ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ].divide(SizedBox(
+                                                                          width:
+                                                                              14.0)),
                                                                     ),
                                                                   ),
-                                                                  Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
-                                                                    children: [
-                                                                      Text(
-                                                                        containerProductRecord
-                                                                            .productName,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Satoshi',
-                                                                              fontSize: 18.0,
-                                                                              letterSpacing: 0.0,
-                                                                              fontWeight: FontWeight.w500,
-                                                                            ),
-                                                                      ),
-                                                                      Text(
-                                                                        'Quantity : ${orderitemsItem.totalItems.toString()}',
-                                                                        maxLines:
-                                                                            1,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Satoshi',
-                                                                              color: FlutterFlowTheme.of(context).primary,
-                                                                              fontSize: 14.0,
-                                                                              letterSpacing: 0.0,
-                                                                              fontWeight: FontWeight.normal,
-                                                                            ),
-                                                                      ),
-                                                                    ],
+                                                                ),
+                                                                if (orderitemsItem
+                                                                    .isVariableWeight)
+                                                                  Builder(
+                                                                    builder:
+                                                                        (context) {
+                                                                      final itemDetails =
+                                                                          <String>[];
+                                                                      if (orderitemsItem.hasPricePerKg()) {
+                                                                        itemDetails.add('Price/kg: ${formatLanguageCurrency(orderitemsItem.pricePerKg, Localizations.localeOf(context).languageCode)}');
+                                                                      }
+                                                                      if (orderitemsItem.hasDepositAmount()) {
+                                                                        itemDetails.add('Deposit: ${formatLanguageCurrency(orderitemsItem.depositAmount, Localizations.localeOf(context).languageCode)}');
+                                                                      }
+                                                                      if (orderitemsItem.hasActualWeight()) {
+                                                                        itemDetails.add('Actual weight: ${orderitemsItem.actualWeight}');
+                                                                      }
+                                                                      if (orderitemsItem.hasFinalItemPrice()) {
+                                                                        itemDetails.add('Final price: ${formatLanguageCurrency(orderitemsItem.finalItemPrice, Localizations.localeOf(context).languageCode)}');
+                                                                      }
+                                                                      if (orderitemsItem.hasRemainingBalance()) {
+                                                                        itemDetails.add('Remaining balance: ${formatLanguageCurrency(orderitemsItem.remainingBalance, Localizations.localeOf(context).languageCode)}');
+                                                                      }
+                                                                      if (orderitemsItem.hasWeightLocked()) {
+                                                                        itemDetails.add('Weight locked: ${orderitemsItem.weightLocked ? 'yes' : 'no'}');
+                                                                      }
+                                                                      if (itemDetails
+                                                                          .isEmpty) {
+                                                                        return SizedBox
+                                                                            .shrink();
+                                                                      }
+                                                                      return Padding(
+                                                                        padding:
+                                                                            const EdgeInsetsDirectional.only(top: 4.0),
+                                                                        child:
+                                                                            Text(
+                                                                          itemDetails.join(' | '),
+                                                                          style:
+                                                                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                fontFamily: 'Satoshi',
+                                                                                color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                fontSize: 12.0,
+                                                                                letterSpacing: 0.0,
+                                                                                fontWeight: FontWeight.normal,
+                                                                              ),
+                                                                        ),
+                                                                      );
+                                                                    },
                                                                   ),
-                                                                  Expanded(
-                                                                    child:
-                                                                        Align(
-                                                                      alignment:
-                                                                          AlignmentDirectional(
-                                                                              1.0,
-                                                                              0.0),
-                                                                      child:
-                                                                          Text(
-                                                                        formatLanguageCurrency(orderitemsItem.pricePerProduct, Localizations.localeOf(context).languageCode),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Satoshi',
-                                                                              fontSize: 16.0,
-                                                                              letterSpacing: 0.0,
-                                                                              fontWeight: FontWeight.w500,
-                                                                            ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ].divide(SizedBox(
-                                                                    width:
-                                                                        14.0)),
-                                                              ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    );
-                                                  }),
-                                                );
-                                              },
-                                            ),
-                                            Padding(
+                                                              ],
+                                                            );
+                                                          },
+                                                        ),
+                                                      );
+                                                    }),
+                                                  ),
+                                                },
+                                              ),                                            Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 36.0, 0.0, 8.0),
@@ -1588,7 +1635,16 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                    'Delivery Fee',
+                                                    containerOrderRecord
+                                                            .isFarmPickup
+                                                        ? 'Farm Pickup (no delivery fee)'
+                                                        : (containerOrderRecord
+                                                                .hasIsAgricoDeliver()
+                                                            ? (containerOrderRecord
+                                                                    .isAgricoDeliver
+                                                                ? 'Uber Delivery Fee (Agrico)'
+                                                                : 'Producer Delivery Fee (to producer)')
+                                                            : 'Delivery Fee'),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -1674,10 +1730,939 @@ class _OrderDetailsWidgetState extends State<OrderDetailsWidget> {
                                       ),
                                     ),
                                   ),
-                                ].divide(SizedBox(width: 24.0)),
-                              ),
-                            ),
-                          ],
+                                 ].divide(SizedBox(width: 24.0)),
+                               ),
+                             ),
+                             // P1-09: payment state and producer-transfer
+                             // display sourced from the payments ledger and
+                             // the backend payment-state fields. Never
+                             // derived from order_status.
+                              StreamBuilder<List<PaymentsRecord>>(
+                                stream: queryPaymentsRecord(
+                                  // P1-09 review fix: fetch every ledger
+                                  // record for this order (legacy random-ID
+                                  // and deterministic records co-exist). A
+                                  // bounded limit could exclude records, and
+                                  // a cross-field orderBy would need a
+                                  // composite index; selection of the primary
+                                  // record is deterministic in
+                                  // primaryPaymentRecord instead.
+                                  queryBuilder: (q) => q.where('orderId',
+                                      isEqualTo:
+                                          containerOrderRecord.reference.id),
+                                ),
+                               builder: (context, paymentRecordsSnapshot) {
+                                 if (!paymentRecordsSnapshot.hasData) {
+                                   return Padding(
+                                     padding: EdgeInsetsDirectional.fromSTEB(
+                                         0.0, 24.0, 0.0, 0.0),
+                                     child: Container(
+                                       width: double.infinity,
+                                       height: 120.0,
+                                       decoration: BoxDecoration(
+                                         color: FlutterFlowTheme.of(context)
+                                             .secondaryBackground,
+                                         borderRadius:
+                                             BorderRadius.circular(12.0),
+                                         border: Border.all(
+                                           color: FlutterFlowTheme.of(context)
+                                               .alternate,
+                                         ),
+                                       ),
+                                     ),
+                                   );
+                                 }
+                                 final paymentRecords =
+                                     paymentRecordsSnapshot.data ??
+                                         const <PaymentsRecord>[];
+                                  final paymentRecord =
+                                      primaryPaymentRecord(paymentRecords);
+                                  final paidRecord =
+                                      paymentRecord != null &&
+                                              paymentRecord.status == 'paid'
+                                          ? paymentRecord
+                                          : null;
+                                  final paymentIsPaidRecord = paidRecord != null;
+                                  final paymentStatus = paymentStatusLabel(
+                                    hasPaidLedgerRecord: paymentIsPaidRecord,
+                                    orderPaymentState:
+                                        containerOrderRecord.paymentState,
+                                    isVariableWeightOrder:
+                                        containerOrderRecord
+                                            .isVariableWeightOrder,
+                                    balancePaymentStatus: containerOrderRecord
+                                        .balancePaymentStatus,
+                                  );
+                                  final transferStatus =
+                                      transferStatusLabel(
+                                    transferStatus: paymentRecord !=
+                                                null &&
+                                            paymentRecord.hasTransferStatus()
+                                        ? paymentRecord.transferStatus
+                                        : '',
+                                    vendorDetails: paymentRecord
+                                            ?.vendorDetails ??
+                                        const <VendorTransferStruct>[],
+                                    transfersProcessed:
+                                        paymentRecord?.transfersProcessed ??
+                                            false,
+                                  );
+                                  final transferRows =
+                                      buildProducerTransferRows(
+                                    expectedVendorDetails: paymentRecord
+                                            ?.expectedVendorDetails ??
+                                        const <
+                                            ExpectedVendorDetailStruct>[],
+                                    vendorDetails: paymentRecord
+                                            ?.vendorDetails ??
+                                        const <VendorTransferStruct>[],
+                                  );
+
+                                 final paymentStatusColor =
+                                     paymentStatus == 'Paid'
+                                         ? FlutterFlowTheme.of(context)
+                                             .primary
+                                         : (paymentIsPaidRecord
+                                             ? Color(0xFFFDC700)
+                                             : FlutterFlowTheme.of(context)
+                                                 .secondaryText);
+                                 final transferStatusColor =
+                                     transferStatus == 'Completed'
+                                         ? FlutterFlowTheme.of(context).primary
+                                         : (transferStatus == 'Failed' ||
+                                                 transferStatus == 'Partial')
+                                             ? FlutterFlowTheme.of(context)
+                                                 .error
+                                             : FlutterFlowTheme.of(context)
+                                                 .secondaryText;
+
+                                 return Padding(
+                                   padding: EdgeInsetsDirectional.fromSTEB(
+                                       0.0, 24.0, 0.0, 0.0),
+                                   child: Container(
+                                     width: double.infinity,
+                                     decoration: BoxDecoration(
+                                       color: FlutterFlowTheme.of(context)
+                                           .secondaryBackground,
+                                       borderRadius:
+                                           BorderRadius.circular(12.0),
+                                       border: Border.all(
+                                         color: FlutterFlowTheme.of(context)
+                                             .alternate,
+                                       ),
+                                     ),
+                                     child: Padding(
+                                       padding: EdgeInsets.all(16.0),
+                                       child: Column(
+                                         mainAxisSize: MainAxisSize.max,
+                                         crossAxisAlignment:
+                                             CrossAxisAlignment.start,
+                                         children: [
+                                           Padding(
+                                             padding: EdgeInsetsDirectional
+                                                 .fromSTEB(0.0, 0.0, 0.0, 12.0),
+                                             child: Text(
+                                               'Payment & Producer Transfers',
+                                               style:
+                                                   FlutterFlowTheme.of(context)
+                                                       .bodyMedium
+                                                       .override(
+                                                         fontFamily: 'Satoshi',
+                                                         fontSize: 16.0,
+                                                         letterSpacing: 0.0,
+                                                         fontWeight:
+                                                             FontWeight.w500,
+                                                       ),
+                                             ),
+                                           ),
+                                           Padding(
+                                             padding: EdgeInsetsDirectional
+                                                 .fromSTEB(0.0, 0.0, 0.0, 4.0),
+                                             child: Row(
+                                               mainAxisSize:
+                                                   MainAxisSize.max,
+                                               mainAxisAlignment:
+                                                   MainAxisAlignment
+                                                       .spaceBetween,
+                                               children: [
+                                                 Text(
+                                                   'Payment status',
+                                                   style: FlutterFlowTheme
+                                                           .of(context)
+                                                       .bodyMedium
+                                                       .override(
+                                                         fontFamily: 'Satoshi',
+                                                         color: FlutterFlowTheme
+                                                                 .of(context)
+                                                             .secondaryText,
+                                                         fontSize: 16.0,
+                                                         letterSpacing: 0.0,
+                                                         fontWeight:
+                                                             FontWeight
+                                                                 .normal,
+                                                       ),
+                                                 ),
+                                                 Text(
+                                                   paymentStatus,
+                                                   style: FlutterFlowTheme
+                                                           .of(context)
+                                                       .bodyMedium
+                                                       .override(
+                                                         fontFamily: 'Satoshi',
+                                                         color:
+                                                             paymentStatusColor,
+                                                         fontSize: 16.0,
+                                                         letterSpacing: 0.0,
+                                                         fontWeight:
+                                                             FontWeight.w500,
+                                                       ),
+                                                 ),
+                                               ],
+                                             ),
+                                           ),
+                                           Padding(
+                                             padding: EdgeInsetsDirectional
+                                                 .fromSTEB(0.0, 0.0, 0.0, 4.0),
+                                             child: Row(
+                                               mainAxisSize:
+                                                   MainAxisSize.max,
+                                               mainAxisAlignment:
+                                                   MainAxisAlignment
+                                                       .spaceBetween,
+                                               children: [
+                                                 Text(
+                                                   'Order payment state',
+                                                   style: FlutterFlowTheme
+                                                           .of(context)
+                                                       .bodyMedium
+                                                       .override(
+                                                         fontFamily: 'Satoshi',
+                                                         color: FlutterFlowTheme
+                                                                 .of(context)
+                                                             .secondaryText,
+                                                         fontSize: 16.0,
+                                                         letterSpacing: 0.0,
+                                                         fontWeight:
+                                                             FontWeight
+                                                                 .normal,
+                                                       ),
+                                                 ),
+                                                 Text(
+                                                   containerOrderRecord
+                                                           .hasPaymentState()
+                                                       ? containerOrderRecord
+                                                           .paymentState
+                                                       : 'Not initiated',
+                                                   style: FlutterFlowTheme
+                                                           .of(context)
+                                                       .bodyMedium
+                                                       .override(
+                                                         fontFamily: 'Satoshi',
+                                                         fontSize: 16.0,
+                                                         letterSpacing: 0.0,
+                                                         fontWeight:
+                                                             FontWeight
+                                                                 .normal,
+                                                       ),
+                                                 ),
+                                               ],
+                                             ),
+                                           ),
+                                            if (paymentIsPaidRecord &&
+                                                (paidRecord!.hasTotalPaid()))
+                                             Padding(
+                                               padding:
+                                                   EdgeInsetsDirectional
+                                                       .fromSTEB(
+                                                           0.0, 0.0, 0.0, 4.0),
+                                               child: Row(
+                                                 mainAxisSize:
+                                                     MainAxisSize.max,
+                                                 mainAxisAlignment:
+                                                     MainAxisAlignment
+                                                         .spaceBetween,
+                                                 children: [
+                                                   Text(
+                                                     'Amount collected',
+                                                     style: FlutterFlowTheme
+                                                             .of(context)
+                                                         .bodyMedium
+                                                         .override(
+                                                           fontFamily:
+                                                               'Satoshi',
+                                                           color: FlutterFlowTheme
+                                                                   .of(context)
+                                                               .secondaryText,
+                                                           fontSize: 16.0,
+                                                           letterSpacing: 0.0,
+                                                           fontWeight:
+                                                               FontWeight
+                                                                   .normal,
+                                                         ),
+                                                   ),
+                                                   Text(
+                                                      formatLanguageCurrency(
+                                                          paidRecord!
+                                                              .totalPaid,
+                                                          Localizations.localeOf(
+                                                                  context)
+                                                              .languageCode),
+                                                     style: FlutterFlowTheme
+                                                             .of(context)
+                                                         .bodyMedium
+                                                         .override(
+                                                           fontFamily:
+                                                               'Satoshi',
+                                                           fontSize: 16.0,
+                                                           letterSpacing: 0.0,
+                                                           fontWeight:
+                                                               FontWeight
+                                                                   .normal,
+                                                         ),
+                                                   ),
+                                                 ],
+                                               ),
+                                             ),
+                                           // P1-06 settlement provenance is
+                                           // absent on legacy ledger records:
+                                           // these rows stay hidden there
+                                           // instead of inferring values.
+                                            if (paymentIsPaidRecord &&
+                                                paidRecord!
+                                                    .hasNetSettlementCents())
+                                             Padding(
+                                               padding:
+                                                   EdgeInsetsDirectional
+                                                       .fromSTEB(
+                                                           0.0, 0.0, 0.0, 4.0),
+                                               child: Row(
+                                                 mainAxisSize:
+                                                     MainAxisSize.max,
+                                                 mainAxisAlignment:
+                                                     MainAxisAlignment
+                                                         .spaceBetween,
+                                                 children: [
+                                                   Text(
+                                                     'Net settlement',
+                                                     style: FlutterFlowTheme
+                                                             .of(context)
+                                                         .bodyMedium
+                                                         .override(
+                                                           fontFamily:
+                                                               'Satoshi',
+                                                           color: FlutterFlowTheme
+                                                                   .of(context)
+                                                               .secondaryText,
+                                                           fontSize: 16.0,
+                                                           letterSpacing: 0.0,
+                                                           fontWeight:
+                                                               FontWeight
+                                                                   .normal,
+                                                         ),
+                                                   ),
+                                                    Text(
+                                                      // P1-09 review fix: the agreed admin currency rule is language-based only (French → EUR, otherwise USD); a ledger currency code must never sit next to a language-derived symbol. The recorded codes stay on the model for reconciliation.
+                                                      formatLanguageCurrency(paidRecord!.netSettlementCents / 100, Localizations.localeOf(context).languageCode),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Satoshi',
+                                                            fontSize: 16.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .normal,
+                                                          ),
+                                                    ),
+                                                 ],
+                                               ),
+                                             ),
+                                            if (paymentIsPaidRecord &&
+                                                paidRecord!
+                                                    .hasStripeFeeCents())
+                                             Padding(
+                                               padding:
+                                                   EdgeInsetsDirectional
+                                                       .fromSTEB(
+                                                           0.0, 0.0, 0.0, 4.0),
+                                               child: Row(
+                                                 mainAxisSize:
+                                                     MainAxisSize.max,
+                                                 mainAxisAlignment:
+                                                     MainAxisAlignment
+                                                         .spaceBetween,
+                                                 children: [
+                                                   Text(
+                                                     'Stripe processing fee',
+                                                     style: FlutterFlowTheme
+                                                             .of(context)
+                                                         .bodyMedium
+                                                         .override(
+                                                           fontFamily:
+                                                               'Satoshi',
+                                                           color: FlutterFlowTheme
+                                                                   .of(context)
+                                                               .secondaryText,
+                                                           fontSize: 16.0,
+                                                           letterSpacing: 0.0,
+                                                           fontWeight:
+                                                               FontWeight
+                                                                   .normal,
+                                                         ),
+                                                   ),
+                                                   Text(
+                                                      formatLanguageCurrency(
+                                                          paidRecord!
+                                                                  .stripeFeeCents /
+                                                              100,
+                                                          Localizations.localeOf(
+                                                                  context)
+                                                              .languageCode),
+                                                     style: FlutterFlowTheme
+                                                             .of(context)
+                                                         .bodyMedium
+                                                         .override(
+                                                           fontFamily:
+                                                               'Satoshi',
+                                                           fontSize: 16.0,
+                                                           letterSpacing: 0.0,
+                                                           fontWeight:
+                                                               FontWeight
+                                                                   .normal,
+                                                         ),
+                                                   ),
+                                                 ],
+                                               ),
+                                             ),
+                                            if (paymentIsPaidRecord &&
+                                                paidRecord!
+                                                    .hasSettlementSource())
+                                             Padding(
+                                               padding:
+                                                   EdgeInsetsDirectional
+                                                       .fromSTEB(
+                                                           0.0, 0.0, 0.0, 4.0),
+                                               child: Row(
+                                                 mainAxisSize:
+                                                     MainAxisSize.max,
+                                                 mainAxisAlignment:
+                                                     MainAxisAlignment
+                                                         .spaceBetween,
+                                                 children: [
+                                                   Text(
+                                                     'Settlement source',
+                                                     style: FlutterFlowTheme
+                                                             .of(context)
+                                                         .bodyMedium
+                                                         .override(
+                                                           fontFamily:
+                                                               'Satoshi',
+                                                           color: FlutterFlowTheme
+                                                                   .of(context)
+                                                               .secondaryText,
+                                                           fontSize: 16.0,
+                                                           letterSpacing: 0.0,
+                                                           fontWeight:
+                                                               FontWeight
+                                                                   .normal,
+                                                         ),
+                                                   ),
+                                                    Text(
+                                                      paidRecord!
+                                                              .settlementSource ==
+                                                          'balance_transaction'
+                                                          ? 'Stripe balance transaction'
+                                                          : 'PaymentIntent gross (fallback)',
+                                                     style: FlutterFlowTheme
+                                                             .of(context)
+                                                         .bodyMedium
+                                                         .override(
+                                                           fontFamily:
+                                                               'Satoshi',
+                                                           fontSize: 16.0,
+                                                           letterSpacing: 0.0,
+                                                           fontWeight:
+                                                               FontWeight
+                                                                   .normal,
+                                                         ),
+                                                   ),
+                                                 ],
+                                               ),
+                                             ),
+                                           StyledDivider(
+                                             thickness: 1.0,
+                                             color: FlutterFlowTheme.of(
+                                                     context)
+                                                 .alternate,
+                                             lineStyle:
+                                                 DividerLineStyle.dashed,
+                                           ),
+                                           Padding(
+                                             padding: EdgeInsetsDirectional
+                                                 .fromSTEB(0.0, 8.0, 0.0, 8.0),
+                                             child: Row(
+                                               mainAxisSize:
+                                                   MainAxisSize.max,
+                                               mainAxisAlignment:
+                                                   MainAxisAlignment
+                                                       .spaceBetween,
+                                               children: [
+                                                 Text(
+                                                   'Producer transfer',
+                                                   style: FlutterFlowTheme
+                                                           .of(context)
+                                                       .bodyMedium
+                                                       .override(
+                                                         fontFamily: 'Satoshi',
+                                                         color: FlutterFlowTheme
+                                                                 .of(context)
+                                                             .secondaryText,
+                                                         fontSize: 16.0,
+                                                         letterSpacing: 0.0,
+                                                         fontWeight:
+                                                             FontWeight
+                                                                 .normal,
+                                                       ),
+                                                 ),
+                                                 Text(
+                                                   transferStatus == ''
+                                                       ? '—'
+                                                       : transferStatus,
+                                                   style: FlutterFlowTheme
+                                                           .of(context)
+                                                       .bodyMedium
+                                                       .override(
+                                                         fontFamily: 'Satoshi',
+                                                         color:
+                                                             transferStatusColor,
+                                                         fontSize: 16.0,
+                                                         letterSpacing: 0.0,
+                                                         fontWeight:
+                                                             FontWeight.w500,
+                                                       ),
+                                                 ),
+                                               ],
+                                             ),
+                                           ),
+                                           if (paymentIsPaidRecord &&
+                                               transferStatus == '')
+                                             Padding(
+                                               padding: EdgeInsetsDirectional
+                                                   .fromSTEB(
+                                                       0.0, 0.0, 0.0, 8.0),
+                                               child: Text(
+                                                 'Transfer details are not recorded on this ledger record (legacy).',
+                                                 style: FlutterFlowTheme
+                                                         .of(context)
+                                                     .bodyMedium
+                                                     .override(
+                                                       fontFamily: 'Satoshi',
+                                                       color: FlutterFlowTheme
+                                                               .of(context)
+                                                           .secondaryText,
+                                                       fontSize: 14.0,
+                                                       letterSpacing: 0.0,
+                                                       fontWeight:
+                                                           FontWeight.normal,
+                                                     ),
+                                               ),
+                                             ),
+                                           ...transferRows.map(
+                                             (row) => Padding(
+                                               padding:
+                                                   EdgeInsetsDirectional
+                                                       .fromSTEB(
+                                                           0.0, 0.0, 0.0, 8.0),
+                                               child: Row(
+                                                 mainAxisSize:
+                                                     MainAxisSize.max,
+                                                 crossAxisAlignment:
+                                                     CrossAxisAlignment.start,
+                                                 mainAxisAlignment:
+                                                     MainAxisAlignment
+                                                         .spaceBetween,
+                                                 children: [
+                                                   Expanded(
+                                                     child: Column(
+                                                       mainAxisSize:
+                                                           MainAxisSize
+                                                               .min,
+                                                       crossAxisAlignment:
+                                                           CrossAxisAlignment
+                                                               .start,
+                                                       children: [
+                                                         Text(
+                                                           'Producer allocation — ${row.vendorId}',
+                                                           style: FlutterFlowTheme
+                                                                   .of(context)
+                                                               .bodyMedium
+                                                               .override(
+                                                                 fontFamily:
+                                                                     'Satoshi',
+                                                                 fontSize:
+                                                                     15.0,
+                                                                 letterSpacing:
+                                                                     0.0,
+                                                                 fontWeight:
+                                                                     FontWeight
+                                                                         .w500,
+                                                               ),
+                                                         ),
+                                                         Padding(
+                                                           padding: EdgeInsetsDirectional
+                                                               .fromSTEB(
+                                                                   0.0,
+                                                                   4.0,
+                                                                   0.0,
+                                                                   0.0),
+                                                           child: Text(
+                                                             'Expected: ${row.hasExpected ? formatLanguageCurrency(row.expectedAmount, Localizations.localeOf(context).languageCode) : 'not recorded'}',
+                                                             style: FlutterFlowTheme
+                                                                     .of(context)
+                                                                 .bodyMedium
+                                                                 .override(
+                                                                   fontFamily:
+                                                                       'Satoshi',
+                                                                   color: FlutterFlowTheme
+                                                                           .of(context)
+                                                                       .secondaryText,
+                                                                   fontSize:
+                                                                       14.0,
+                                                                   letterSpacing:
+                                                                       0.0,
+                                                                   fontWeight:
+                                                                       FontWeight
+                                                                           .normal,
+                                                                 ),
+                                                           ),
+                                                         ),
+                                                         Padding(
+                                                           padding: EdgeInsetsDirectional
+                                                               .fromSTEB(
+                                                                   0.0,
+                                                                   2.0,
+                                                                   0.0,
+                                                                   0.0),
+                                                            child: Text(
+                                                              'Transferred: ${row.actualAmount != null ? formatLanguageCurrency(row.actualAmount, Localizations.localeOf(context).languageCode) : 'not recorded'}',
+                                                             style: FlutterFlowTheme
+                                                                     .of(context)
+                                                                 .bodyMedium
+                                                                 .override(
+                                                                   fontFamily:
+                                                                       'Satoshi',
+                                                                   color: FlutterFlowTheme
+                                                                           .of(context)
+                                                                       .secondaryText,
+                                                                   fontSize:
+                                                                       14.0,
+                                                                   letterSpacing:
+                                                                       0.0,
+                                                                   fontWeight:
+                                                                       FontWeight
+                                                                           .normal,
+                                                                 ),
+                                                           ),
+                                                         ),
+                                                         if (row.transferId !=
+                                                             '')
+                                                           Padding(
+                                                             padding: EdgeInsetsDirectional
+                                                                 .fromSTEB(
+                                                                     0.0,
+                                                                     2.0,
+                                                                     0.0,
+                                                                     0.0),
+                                                             child: Text(
+                                                               'Transfer ID: ${row.transferId}',
+                                                               style: FlutterFlowTheme
+                                                                       .of(context)
+                                                                   .bodyMedium
+                                                                   .override(
+                                                                     fontFamily:
+                                                                         'Satoshi',
+                                                                     color: FlutterFlowTheme
+                                                                             .of(context)
+                                                                         .secondaryText,
+                                                                     fontSize:
+                                                                         14.0,
+                                                                     letterSpacing:
+                                                                         0.0,
+                                                                     fontWeight:
+                                                                         FontWeight
+                                                                             .normal,
+                                                                   ),
+                                                             ),
+                                                           ),
+                                                         if (row
+                                                             .transferFailed)
+                                                           Padding(
+                                                             padding: EdgeInsetsDirectional
+                                                                 .fromSTEB(
+                                                                     0.0,
+                                                                     2.0,
+                                                                     0.0,
+                                                                     0.0),
+                                                             child: Text(
+                                                               'Failure: ${row.failureDescription == '' ? 'not recorded' : row.failureDescription}',
+                                                               style: FlutterFlowTheme
+                                                                       .of(context)
+                                                                   .bodyMedium
+                                                                   .override(
+                                                                     fontFamily:
+                                                                         'Satoshi',
+                                                                     color: FlutterFlowTheme
+                                                                             .of(context)
+                                                                         .error,
+                                                                     fontSize:
+                                                                         14.0,
+                                                                     letterSpacing:
+                                                                         0.0,
+                                                                     fontWeight:
+                                                                         FontWeight
+                                                                             .normal,
+                                                                   ),
+                                                             ),
+                                                           ),
+                                                       ].divide(SizedBox(
+                                                           height: 2.0)),
+                                                     ),
+                                                   ),
+                                                   Text(
+                                                     row.statusLabel,
+                                                     style:
+                                                         FlutterFlowTheme.of(
+                                                                 context)
+                                                             .bodyMedium
+                                                             .override(
+                                                               fontFamily:
+                                                                   'Satoshi',
+                                                               color: row
+                                                                       .transferSucceeded
+                                                                   ? FlutterFlowTheme
+                                                                           .of(
+                                                                               context)
+                                                                       .primary
+                                                                   : (row.transferFailed
+                                                                       ? FlutterFlowTheme.of(
+                                                                               context)
+                                                                           .error
+                                                                       : FlutterFlowTheme.of(
+                                                                               context)
+                                                                           .secondaryText),
+                                                               fontSize:
+                                                                   15.0,
+                                                               letterSpacing:
+                                                                   0.0,
+                                                               fontWeight:
+                                                                   FontWeight
+                                                                       .w500,
+                                                             ),
+                                                   ),
+                                                 ],
+                                               ),
+                                             ),
+                                           ),
+                                            if (paymentIsPaidRecord &&
+                                                (paidRecord!
+                                                        .hasProcessingError() ||
+                                                    paidRecord!
+                                                        .reconciliationRequired))
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 8.0),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .start,
+                                                  children: [
+                                                    if (paidRecord!
+                                                        .hasProcessingError())
+                                                      Text(
+                                                        'Processing error: ${paidRecord!.processingError}',
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Satoshi',
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .error,
+                                                              fontSize: 14.0,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .normal,
+                                                            ),
+                                                      ),
+                                                    if (paidRecord!
+                                                        .reconciliationRequired)
+                                                     Text(
+                                                       'Reconciliation required in the Stripe dashboard.',
+                                                       style: FlutterFlowTheme
+                                                               .of(context)
+                                                           .bodyMedium
+                                                           .override(
+                                                             fontFamily:
+                                                                 'Satoshi',
+                                                             color: FlutterFlowTheme
+                                                                     .of(context)
+                                                                 .error,
+                                                             fontSize: 14.0,
+                                                             letterSpacing:
+                                                                 0.0,
+                                                             fontWeight:
+                                                                 FontWeight
+                                                                     .normal,
+                                                           ),
+                                                     ),
+                                                 ].divide(SizedBox(
+                                                     height: 2.0)),
+                                               ),
+                                             ),
+                                           if (containerOrderRecord
+                                               .isVariableWeightOrder)
+                                             Padding(
+                                               padding: EdgeInsetsDirectional
+                                                   .fromSTEB(
+                                                       8.0, 8.0, 8.0, 0.0),
+                                               child: Column(
+                                                 mainAxisSize:
+                                                     MainAxisSize.min,
+                                                 crossAxisAlignment:
+                                                     CrossAxisAlignment.start,
+                                                 children: [
+                                                   Text(
+                                                     'Order type: variable weight (deposit basis)',
+                                                     style:
+                                                         FlutterFlowTheme.of(
+                                                                 context)
+                                                             .bodyMedium
+                                                             .override(
+                                                               fontFamily:
+                                                                   'Satoshi',
+                                                               fontSize:
+                                                                   14.0,
+                                                               letterSpacing:
+                                                                   0.0,
+                                                               fontWeight:
+                                                                   FontWeight
+                                                                       .normal,
+                                                             ),
+                                                   ),
+                                                   if (containerOrderRecord
+                                                           .hasBalancePaymentStatus() &&
+                                                       containerOrderRecord
+                                                           .balancePaymentStatus
+                                                           .isNotEmpty)
+                                                     Text(
+                                                       'Final balance status: ${containerOrderRecord.balancePaymentStatus}',
+                                                       style: FlutterFlowTheme
+                                                               .of(context)
+                                                           .bodyMedium
+                                                           .override(
+                                                             fontFamily:
+                                                                 'Satoshi',
+                                                             color: FlutterFlowTheme
+                                                                     .of(context)
+                                                                 .secondaryText,
+                                                             fontSize: 14.0,
+                                                             letterSpacing:
+                                                                 0.0,
+                                                             fontWeight:
+                                                                 FontWeight
+                                                                     .normal,
+                                                           ),
+                                                     ),
+                                                   // Deposit/final-balance
+                                                   // amounts appear only when
+                                                   // already recorded by the
+                                                   // backend; no invented
+                                                   // values for missing fields.
+                                                   if (containerOrderRecord
+                                                       .hasInitialDepositPaid())
+                                                     Text(
+                                                       'Deposit paid (recorded): ${formatLanguageCurrency(containerOrderRecord.initialDepositPaid, Localizations.localeOf(context).languageCode)}',
+                                                       style: FlutterFlowTheme
+                                                               .of(context)
+                                                           .bodyMedium
+                                                           .override(
+                                                             fontFamily:
+                                                                 'Satoshi',
+                                                             color: FlutterFlowTheme
+                                                                     .of(context)
+                                                                 .secondaryText,
+                                                             fontSize: 14.0,
+                                                             letterSpacing:
+                                                                 0.0,
+                                                             fontWeight:
+                                                                 FontWeight
+                                                                     .normal,
+                                                           ),
+                                                     ),
+                                                   if (containerOrderRecord
+                                                       .hasFinalBalanceAmount())
+                                                     Text(
+                                                       'Final balance (recorded): ${formatLanguageCurrency(containerOrderRecord.finalBalanceAmount, Localizations.localeOf(context).languageCode)}',
+                                                       style: FlutterFlowTheme
+                                                               .of(context)
+                                                           .bodyMedium
+                                                           .override(
+                                                             fontFamily:
+                                                                 'Satoshi',
+                                                             color: FlutterFlowTheme
+                                                                     .of(context)
+                                                                 .secondaryText,
+                                                             fontSize: 14.0,
+                                                             letterSpacing:
+                                                                 0.0,
+                                                             fontWeight:
+                                                                 FontWeight
+                                                                     .normal,
+                                                           ),
+                                                     ),
+                                                 ].divide(SizedBox(
+                                                     height: 2.0)),
+                                               ),
+                                             ),
+                                           if (!paymentIsPaidRecord &&
+                                               paymentRecords.isEmpty)
+                                             Padding(
+                                               padding: EdgeInsetsDirectional
+                                                   .fromSTEB(
+                                                       0.0, 0.0, 0.0, 0.0),
+                                               child: Text(
+                                                 'No payment collected for this order yet.',
+                                                 style: FlutterFlowTheme
+                                                         .of(context)
+                                                     .bodyMedium
+                                                     .override(
+                                                       fontFamily: 'Satoshi',
+                                                       color: FlutterFlowTheme
+                                                               .of(context)
+                                                           .secondaryText,
+                                                       fontSize: 14.0,
+                                                       letterSpacing: 0.0,
+                                                       fontWeight:
+                                                           FontWeight.normal,
+                                                     ),
+                                               ),
+                                             ),
+                                         ],
+                                       ),
+                                     ),
+                                   ),
+                                 );
+                               },
+                             ),
+                           ],
                         ),
                       );
                     },

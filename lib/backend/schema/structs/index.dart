@@ -9,3 +9,5 @@ export 'product_weight_struct.dart';
 export 'product_weight_bracket_struct.dart';
 export 'review_struct.dart';
 export 'uploaddata_struct.dart';
+export 'expected_vendor_detail_struct.dart';
+export 'vendor_transfer_struct.dart';
